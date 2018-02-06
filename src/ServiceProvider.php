@@ -2,6 +2,7 @@
 
 namespace Rap2hpoutre\Indice;
 
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 
@@ -15,8 +16,9 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function boot()
     {
+        $this->loadViewsFrom(__DIR__.'/../views', 'indice');
         app()->singleton(
-            \Illuminate\Contracts\Debug\ExceptionHandler::class,
+            ExceptionHandler::class,
             Handler::class
         );
     }

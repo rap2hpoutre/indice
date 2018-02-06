@@ -36,7 +36,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Rap2hpoutre\\LaravelStripeConnect\\ServiceProvider"
+        "Rap2hpoutre\\Indice\\ServiceProvider"
       ]
     }
   },
