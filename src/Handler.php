@@ -2,6 +2,9 @@
 
 namespace Rap2hpoutre\Indice;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\MassAssignmentException;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 use Exception;
@@ -57,7 +60,7 @@ class Handler extends ExceptionHandler
                     '});',
                     '```'
                 ]),
-                'There is a typo in route name. Please check if `' . request()->path() . '` is the right path.'
+                'There may be a typo in route name. Please check if `' . request()->path() . '` is the right path.'
             ]);
         } elseif ($e instanceof MethodNotAllowedHttpException) {
             return $this->view('The method ' . request()->method() . ' is not allowed for ' . request()->url(), [
@@ -81,8 +84,55 @@ class Handler extends ExceptionHandler
                 'In short, you could consider adding a new route **or** call an existing route via a valid [HTTP method](http://google.com).',
                 'More information [here on StackOverflow](http://google.com).'
             ]);
+        } elseif ($e instanceof QueryException) {
+            if (strpos($e->getMessage(), 'Connection refused') !== false) {
+                return $this->view('SQL Connection refused', [
+                    implode("\n", [
+                        'You have to configure your database in your `.env` file (it may be a hidden file):',
+                        '',
+                        '```bash',
+                        'DB_CONNECTION=mysql             # Choose: mysql, pgsql or sqlite',
+                        'DB_HOST=127.0.0.1               # If it does not work, try localhost',
+                        'DB_PORT=3306                    # use 3306 for MySQL or 5432 for PostgreSQL',
+                        'DB_DATABASE=your_database_name  # You have to create the database first',
+                        'DB_USERNAME=your_database_user  # Your SQL user name',
+                        'DB_PASSWORD=secret              # The SQL user password',
+                        '```'
+                    ]),
+                    implode("\n", [
+                        'Your current configuration is: ',
+                        '- Connection: `' . config('database.default') . '`',
+                        '- Host: `' . config('database.connections.' . config('database.default') . '.host') . '`',
+                        '- Port: `' . config('database.connections.' . config('database.default') . '.port') . '`',
+                        '- Database: `' . config('database.connections.' . config('database.default') . '.database') . '`',
+                        '- Username: `' . config('database.connections.' . config('database.default') . '.username') . '`',
+                        '- Password: `' . config('database.connections.' . config('database.default') . '.password') . '`',
+                        '<br>'
+                    ]),
+                    'Check that your SQL server is running.',
+                ]);
+            }
+
+            dd($this->getModel());
+
+        } elseif ($e instanceof MassAssignmentException) {
+
         }
         return parent::render($request, $e);
+    }
+
+    private function getModel()
+    {
+        foreach ($this->exception->getTrace() as $e) {
+            if (is_array($e['args'])) {
+                foreach ($e['args'] as $arg) {
+                    if ($arg instanceof Builder) {
+                        return get_class($arg->getModel());
+                    }
+                }
+            }
+        }
+        return Builder::class;
     }
 
     private function view($title, $hints)

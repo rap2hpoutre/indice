@@ -22,6 +22,11 @@
   <h5>Type</h5>
   <code class="ml-4 php language-php">{{get_class($e)}}</code>
   <hr>
+  @if ($e->getMessage())
+  <h5>Message</h5>
+  <code class="ml-4 php language-php">{{$e->getMessage()}}</code>
+  <hr>
+  @endif
   <h5>Stack Trace</h5>
   <ol>{!! $errors !!}</ol>
 </div>
