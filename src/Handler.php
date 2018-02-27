@@ -4,6 +4,7 @@ namespace Rap2hpoutre\Indice;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\MassAssignmentException;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
@@ -67,6 +68,7 @@ class Handler extends ExceptionHandler
             $e->getTraceAsString()
         );
 
+        // "IF / ELSEIF / ELSE" HELL.
         if ($e instanceof NotFoundHttpException) {
             return $this->view('not-found-http-exception');
         } elseif ($e instanceof MethodNotAllowedHttpException) {
@@ -75,10 +77,21 @@ class Handler extends ExceptionHandler
             if (strpos($e->getMessage(), 'Connection refused') !== false) {
                 return $this->view('query-exception--connection-refused');
             } elseif (strpos($e->getMessage(), 'Not null violation') !== false) {
+                // return $this->view('query-exception--not-null-violation');
                 // TODO
             }
         } elseif ($e instanceof MassAssignmentException) {
-            // TODO
+            if (strpos($e->getMessage(), 'mass assignment on ') !== false) {
+                $model = preg_replace('/^.*\[(.*)\]\.$/', '\\1', $e->getMessage());
+                $name = preg_replace('/^[^\[]*\[([^\]]*)\].*$/', '\\1', $e->getMessage());
+            } else {
+                $model = $this->getModel();
+                $name = 'key';
+            }
+            return $this->view(kebab_case('MassAssignmentException'), [
+                'model' => $model,
+                'name' => $name
+            ]);
         } elseif ($e instanceof UnexpectedValueException) {
             // Logs not writable
             if (str_contains($e->getMessage(), 'failed to open stream') && str_contains($e->getMessage(), 'storage/logs')) {
@@ -89,11 +102,13 @@ class Handler extends ExceptionHandler
     }
 
     /**
+     * @param string $default
      * @return string
      */
-    private function getModel()
+    private function getModel($default = Builder::class)
     {
         foreach ($this->exception->getTrace() as $e) {
+
             if (is_array($e['args'])) {
                 foreach ($e['args'] as $arg) {
                     if ($arg instanceof Builder) {
@@ -101,19 +116,27 @@ class Handler extends ExceptionHandler
                     }
                 }
             }
+
+            if ($e['class'] ?? '' == Model::class) {
+                if ($e['function'] == '__callStatic' && strpos($e['args'][0],  'create') !== false) {
+                    // dd(token_get_all(file_get_contents($e['file'])));
+                }
+            }
         }
-        return Builder::class;
+        // dd('end');
+        return $default;
     }
 
     /**
      * @param $name
+     * @param array $params
      * @return \Illuminate\Http\Response
      */
-    private function view($name)
+    private function view($name, $params = [])
     {
-        return response()->view('indice::' . $name, [
+        return response()->view('indice::' . $name, array_merge([
             'e' => $this->exception,
             'errors' => $this->errors,
-        ]);
+        ], $params));
     }
 }
