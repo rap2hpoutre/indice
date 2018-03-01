@@ -17,13 +17,11 @@ Install (in one step) with composer:
 composer require rap2hpoutre/indice
 ```
 
-## Try 
+## Try it!
 
 Use your browser to visit a non-existing route. You may see an enlighted error with hints.
 
-## Examples
-
-Here are some screenshots of rendering:
+## Screenshots
 
 ### 🤔 MassAssignmentException
 
