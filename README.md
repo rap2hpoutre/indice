@@ -30,4 +30,4 @@ Here are some screenshots of rendering:
 
 ### 😕 NotFoundHttpException
 
-<img width="400" src="https://user-images.githubusercontent.com/1575946/36840375-07713466-1d45-11e8-98d8-08ae9a53f50b.png">
+<img width="492" src="https://user-images.githubusercontent.com/1575946/36841601-1cd3e804-1d49-11e8-8a9c-d31f4af8b8a1.png">
