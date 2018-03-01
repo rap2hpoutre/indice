@@ -7,9 +7,19 @@
 This package silently turns some default exceptions to a learning-minded error page. 
 Because people can forget (or ignore)
 how to fix `MethodNotAllowedHttpException` or 
-some other semi-obscur Exceptions. 
+some other semi-obscur Exceptions. This package is for beginners to intermediate developers, tired or memory-less people (just like me).
 
-This package is for beginners, drunk or memory-less people (just like me).
+## Install 
+
+Install (in one step) with composer:
+
+```
+composer require rap2hpoutre/indice
+```
+
+## Try 
+
+Use your browser to visit a non-existing route. You may see an enlighted error with hints.
 
 ## Examples
 
