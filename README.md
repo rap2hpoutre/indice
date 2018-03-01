@@ -26,7 +26,7 @@ Here are some screenshots of rendering:
 
 ### 😐 Query Exception (connection refused)
 
-<img width="553" src="https://user-images.githubusercontent.com/1575946/36841514-c88dafb4-1d48-11e8-8bf3-1da0f43004db.png">
+<img width="553" src="https://user-images.githubusercontent.com/1575946/36841719-839e90fc-1d49-11e8-91cd-79ca46ccda6d.png">
 
 ### 😕 NotFoundHttpException
 
