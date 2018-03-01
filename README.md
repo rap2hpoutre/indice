@@ -17,7 +17,7 @@ Here are some screenshots of rendering:
 
 ### 🤔 MassAssignmentException
 
-<img src="https://user-images.githubusercontent.com/1575946/36801066-59d00bcc-1cb1-11e8-99f5-4b9b6e0be238.png" width="440">
+<img width="499" alt="capture d ecran 2018-03-01 a 11 56 27" src="https://user-images.githubusercontent.com/1575946/36841112-9c5b1a5e-1d47-11e8-8d37-223d388257b7.png">
 
 
 ### 🤨 MethodNotAllowedHttpException
