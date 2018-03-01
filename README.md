@@ -11,7 +11,8 @@ some other semi-obscur Exceptions.
 
 This package is for beginners, drunk or memory-less people (just like me).
 
-## Show me!
+## Examples
 
 ### MassAssignmentException
-![MassAssignmentException](https://user-images.githubusercontent.com/1575946/36801066-59d00bcc-1cb1-11e8-99f5-4b9b6e0be238.png)
+
+<img src="https://user-images.githubusercontent.com/1575946/36801066-59d00bcc-1cb1-11e8-99f5-4b9b6e0be238.png" width="450">
