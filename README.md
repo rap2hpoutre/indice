@@ -17,16 +17,16 @@ Here are some screenshots of rendering:
 
 ### 🤔 MassAssignmentException
 
-<img width="499" alt="capture d ecran 2018-03-01 a 11 56 27" src="https://user-images.githubusercontent.com/1575946/36841112-9c5b1a5e-1d47-11e8-8d37-223d388257b7.png">
+<img width="522" src="https://user-images.githubusercontent.com/1575946/36841326-441d414a-1d48-11e8-9697-ff3c84f02109.png">
 
 
 ### 🤨 MethodNotAllowedHttpException
 
-<img width="520" src="https://user-images.githubusercontent.com/1575946/36840385-0bd81f56-1d45-11e8-96ad-b2a0d7068fc2.png">
+<img width="595" src="https://user-images.githubusercontent.com/1575946/36841421-8c68328e-1d48-11e8-96a2-28319252c71f.png">
 
 ### 😐 Query Exception (connection refused)
 
-<img width="480" src="https://user-images.githubusercontent.com/1575946/36840637-ff6ba03e-1d45-11e8-9dd0-c6c35b1f9f11.png">
+<img width="553" src="https://user-images.githubusercontent.com/1575946/36841514-c88dafb4-1d48-11e8-8bf3-1da0f43004db.png">
 
 ### 😕 NotFoundHttpException
 
